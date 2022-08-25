@@ -13,27 +13,41 @@ const Country = (props) => {
     const flagSvg = country.flags.svg
     const population = Number(country.population).toLocaleString('en-US')
     const region = country.region
-    const subRegion = country.subregion
-    const capital = country.capital[0]
-    const tld = country.tld[0]
+    const subregion = country.subregion || ''
 
-    const currencies = Object.values(country.currencies)
-    const currency = currencies[0].name
+    let capital = ''
+    let currencies = []
+    let currency = ''
+    let languages = []
+    let nativeNames = []
+    let nativeName = ''
+    let tld = ''
+    if ('capital' in country)
+        capital = country.capital[0]
 
-    const languages = Object.values(country.languages).toString().replaceAll(',', ', ')
+    if ('currencies' in country) {
+        currencies = Object.values(country.currencies)
+        currency = currencies[0].name
+    }
 
-    const nativeNames = Object.values(country.name.nativeName)
-    const nativeName = nativeNames[0].common
+    if ('languages' in country)
+        languages = Object.values(country.languages).toString().replaceAll(',', ', ')
 
-    const borders = props.borders
- 
+    if ('tld' in country)
+        tld = country.tld[0]
+
+    if ('nativeName' in country) {
+        nativeNames = Object.values(country.name.nativeName)
+        nativeName = nativeNames[0].common
+    } else {
+        nativeName = country.name.common
+    }
+
+    const borders = props.borders || []
+
     const router = useRouter()
     const buttonBg = useColorModeValue('white', 'dark-blue')
     const buttonColor = useColorModeValue('very-dark-blue-2', 'white')
-
-    // useEffect(() => {
-    //     setBorders([])
-    // }, [router.query.slug])
 
     return (
         <Box
@@ -97,8 +111,8 @@ const Country = (props) => {
                             <SubInfoText title={'Native name: '} text={nativeName} />
                             <SubInfoText title={'Population: '} text={population} />
                             <SubInfoText title={'Region: '} text={region} />
-                            <SubInfoText title={'Sub Region: '} text={subRegion} />
-                            <SubInfoText title={'Capital: '} text={capital} />
+                            {subregion.length > 0 && <SubInfoText title={'Sub Region: '} text={subregion} />}
+                            {capital.length > 0 && <SubInfoText title={'Capital: '} text={capital} />}
 
                         </Flex>
 
@@ -109,9 +123,9 @@ const Country = (props) => {
                             alignItems={'flex-start'}
                             marginTop={{ base: 10, lg: 0 }}>
 
-                            <SubInfoText title={'Top Level Domain: '} text={tld} />
-                            <SubInfoText title={'Currencies: '} text={currency} />
-                            <SubInfoText title={'Languages: '} text={languages} />
+                            {tld.length > 0 && <SubInfoText title={'Top Level Domain: '} text={tld} />}
+                            {currency.length > 0 && <SubInfoText title={'Currencies: '} text={currency} />}
+                            {languages.length > 0 && <SubInfoText title={'Languages: '} text={languages} />}
 
                         </Flex>
 
@@ -122,12 +136,13 @@ const Country = (props) => {
                         flexDirection={{ base: 'column', lg: 'row' }}
                         alignItems={{ base: 'flex-start', lg: 'center' }}>
 
-                        <Text
+                        {borders.length > 0 && <Text
                             fontWeight={'bold'}
                             fontSize={{ base: 'lg', lg: 'md' }}
                             marginEnd={'4'}>
                             Border Countries:
                         </Text>
+                        }
 
                         <Grid
                             gridTemplateColumns={'repeat(3, 1fr)'}
@@ -160,6 +175,7 @@ const Country = (props) => {
 export async function getStaticProps({ params }) {
     let country = null
     let borderNames = []
+    
     await fetchApi().get(`/name/${params.country}?fullText=true?fields=name,capital,population,region,flags,subregion,tld,currencies,languages,borders`)
         .then(res => {
             country = res.data
@@ -169,7 +185,9 @@ export async function getStaticProps({ params }) {
     let borders = []
     for (const i in borderNames) {
         const { data } = await fetchApi().get(`/alpha/${borderNames[i]}?fields=name`)
-        borders.push(data.name.common)
+        console.log(data)
+        if (data.hasOwnProperty('common'))
+            borders.push(data.name.common)
     }
 
     return {
@@ -189,7 +207,7 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: true
+        fallback: false
     }
 
 }
