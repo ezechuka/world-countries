@@ -2,9 +2,6 @@ import { Box, Grid } from "@chakra-ui/react"
 import SearchFilter from "../components/SearchFilter"
 import { fetchApi } from "../utils/fetchApi"
 
-import { FaGlobe } from 'react-icons/fa'
-
-import belgium from '../assets/images/belgium.png'
 import { CountryCard } from "../components/CountryCard"
 import { useState } from "react"
 
@@ -49,61 +46,6 @@ const Home = ({ countries }) => {
 export async function getStaticProps() {
     const { data } = await fetchApi().get('/all?fields=name,capital,population,region,flags')
     const countries = data
-    // const countries = [{
-    //     'name': { common: 'Belgium' },
-    //     'population': '11,319,511',
-    //     'region': 'Europe',
-    //     'capital': 'Brussels',
-    //     'flags': { svg: { belgium } }
-    // },
-    // {
-    //     'name': { common: 'Moldova' },
-    //     'population': '11,319,511',
-    //     'region': 'Europe',
-    //     'capital': 'Brussels',
-    //     'flags': { svg: { belgium } }
-    // },
-    // {
-    //     'name': { common: 'Canada' },
-    //     'population': '11,319,511',
-    //     'region': 'Americas',
-    //     'capital': 'Brussels',
-    //     'flags': { svg: { belgium } }
-    // },
-    // {
-    //     'name': { common: 'Germany' },
-    //     'population': '11,319,511',
-    //     'region': 'Europe',
-    //     'capital': 'Brussels',
-    //     'flags': { svg: { belgium } }
-    // }, {
-    //     'name': { common: 'Brazil' },
-    //     'population': '11,319,511',
-    //     'region': 'Americas',
-    //     'capital': 'Brussels',
-    //     'flags': { svg: { belgium } }
-    // },
-    // {
-    //     'name': { common: 'Japan' },
-    //     'population': '11,319,511',
-    //     'region': 'Asia',
-    //     'capital': 'Brussels',
-    //     'flags': { svg: { belgium } }
-    // },
-    // {
-    //     'name': { common: 'Kuwait' },
-    //     'population': '11,319,511',
-    //     'region': 'Asia',
-    //     'capital': 'Brussels',
-    //     'flags': { svg: { belgium } }
-    // },
-    // {
-    //     'name': { common: 'Nigeria' },
-    //     'population': '11,319,511',
-    //     'region': 'Africa',
-    //     'capital': 'Brussels',
-    //     'flags': { svg: { belgium } }
-    // },]
 
     return {
         props: {

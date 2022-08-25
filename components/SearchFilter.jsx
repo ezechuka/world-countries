@@ -2,7 +2,6 @@ import { Flex, InputGroup, InputLeftElement, Input, Menu, MenuButton, Button, Me
 
 import { ChevronDownIcon, SearchIcon } from "@chakra-ui/icons";
 import { useState } from 'react';
-import { ClassNames } from '@emotion/react';
 
 const SearchFilter = ({ countries, setCountry }) => {
 

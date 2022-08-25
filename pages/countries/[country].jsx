@@ -6,8 +6,6 @@ import { useRouter } from "next/router"
 
 import { fetchApi } from "../../utils/fetchApi"
 import { SubInfoText } from '../../components/CountryCard'
-import belgium from '../../assets/images/belgium.png'
-import { useEffect, useState } from "react"
 
 const Country = (props) => {
     const country = props.country[0]
@@ -157,18 +155,6 @@ const Country = (props) => {
             </Flex>
         </Box>
     )
-}
-
-async function getBorderCountryName(borders) {
-
-    const borderNames = []
-    for (const i in borders) {
-        const { data } = await fetchApi().get(`/alpha/${borders[i]}?fields=name`)
-        borderNames.push(data.name.common)
-    }
-
-    return borderNames
-    // setBorders(borderNames)
 }
 
 export async function getStaticProps({ params }) {
