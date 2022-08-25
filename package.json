@@ -1,0 +1,32 @@
+{
+  "name": "rest-countries",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@chakra-ui/icons": "^2.0.8",
+    "@chakra-ui/react": "^2.2.6",
+    "@emotion/react": "^11.10.0",
+    "@emotion/styled": "^11.10.0",
+    "@fontsource/nunito": "^4.5.10",
+    "@fontsource/nunito-sans": "^4.5.9",
+    "axios": "^0.27.2",
+    "framer-motion": "^7.0.0",
+    "millify": "^5.0.0",
+    "next": "12.2.4",
+    "nprogress": "^0.2.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-horizontal-scrolling-menu": "^3.1.1",
+    "react-icons": "^4.4.0"
+  },
+  "devDependencies": {
+    "eslint": "8.21.0",
+    "eslint-config-next": "12.2.4"
+  }
+}
