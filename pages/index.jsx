@@ -36,8 +36,6 @@ const Home = ({ countries }) => {
                     />
                 ))}
 
-                {allCountry.length === 0 && <FaGlobe />}
-
             </Grid>
         </Box>
     )

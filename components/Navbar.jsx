@@ -24,7 +24,6 @@ const Navbar = () => {
                 <Button
                     variant={'ghost'}
                     leftIcon={colorMode === 'light' ? <TbMoon size={'1.2rem'} /> : <FaMoon />}
-                    fontSize={'lg'}
                     fontSize={{ base: 'sm', md: 'md' }}
                     onClick={toggleColorMode}>
                     {colorMode === 'light' ? 'Dark' : 'Light'} Mode

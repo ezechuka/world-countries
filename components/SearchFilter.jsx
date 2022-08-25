@@ -56,10 +56,9 @@ const SearchFilter = ({ countries, setCountry }) => {
                 size={'lg'}
                 width={{ base: '100%', md: '40%' }}
                 boxShadow={'md'}>
-                <InputLeftElement
-                    pointerEvents={'none'}
-                    children={<SearchIcon color={inputColor} />}
-                />
+                <InputLeftElement pointerEvents={'none'}>
+                    <SearchIcon color={inputColor} />
+                </InputLeftElement>
 
                 <Input
                     variant={'solid'}

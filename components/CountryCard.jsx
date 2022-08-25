@@ -2,8 +2,6 @@ import { Flex, useColorModeValue, Box, Text, VStack } from "@chakra-ui/react"
 import Image from "next/image"
 import Link from "next/link"
 
-import belgium from '../assets/images/belgium.png'
-
 export const SubInfoText = ({ title, text }) => {
     return (
         <Text
