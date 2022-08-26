@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Grid, HStack, Spacer, Text, useColorModeValue } from "@chakra-ui/react"
+import { Box, Button, Flex, Grid, Text, useColorModeValue } from "@chakra-ui/react"
 import { BsArrowLeft } from "react-icons/bs"
 
 import Image from "next/image"
@@ -8,7 +8,7 @@ import { fetchApi } from "../../utils/fetchApi"
 import { SubInfoText } from '../../components/CountryCard'
 
 const Country = (props) => {
-    const country = props.country[0]
+    const country = props.country
     const countryName = country.name.common
     const flagSvg = country.flags.svg
     const population = Number(country.population).toLocaleString('en-US')
@@ -23,18 +23,18 @@ const Country = (props) => {
     let nativeName = ''
     let tld = ''
     if ('capital' in country)
-        capital = country.capital[0]
+        capital = country.capital[0] || ''
 
-    if ('currencies' in country) {
+    if (Object.keys(country.currencies).length > 0 && 'currencies' in country) {
         currencies = Object.values(country.currencies)
         currency = currencies[0].name
     }
 
-    if ('languages' in country)
+    if (Object.keys(country.languages) && 'languages' in country)
         languages = Object.values(country.languages).toString().replaceAll(',', ', ')
 
     if ('tld' in country)
-        tld = country.tld[0]
+        tld = country.tld[0] || ''
 
     if ('nativeName' in country) {
         nativeNames = Object.values(country.name.nativeName)
@@ -175,21 +175,23 @@ const Country = (props) => {
 export async function getStaticProps({ params }) {
     let country = null
     let borderNames = []
-    
-    await fetchApi().get(`/name/${params.country}?fullText=true?fields=name,capital,population,region,flags,subregion,tld,currencies,languages,borders`)
+
+    await fetchApi().get(`/alpha/${params.country}?fields=name,capital,population,region,flags,subregion,tld,currencies,languages,borders`)
         .then(res => {
             country = res.data
-            borderNames = country[0].borders
+            borderNames = country.borders
+        }).catch(err => {
+            console.log(err.response.data)
         })
 
     let borders = []
     for (const i in borderNames) {
         const { data } = await fetchApi().get(`/alpha/${borderNames[i]}?fields=name`)
-        console.log(data)
-        if (data.hasOwnProperty('common'))
+        if (data.name !== undefined)
             borders.push(data.name.common)
     }
 
+    console.log(country)
     return {
         props: {
             country,
@@ -200,9 +202,9 @@ export async function getStaticProps({ params }) {
 
 export async function getStaticPaths() {
     const { data } = await
-        fetchApi().get('/all?fields=name')
-    const countries = data
-    const allCountryNames = countries.map((country) => country.name.common)
+        fetchApi().get('/all?fields=cca3')
+    const countries = data.filter(d => d.cca3 !== 'BRN')  // BRN code returns JSON Syntax error
+    const allCountryNames = countries.map((country) => country.cca3)
     const paths = allCountryNames.map(name => ({ params: { country: name } }))
 
     return {

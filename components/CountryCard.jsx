@@ -16,13 +16,13 @@ export const SubInfoText = ({ title, text }) => {
     )
 }
 
-export const CountryCard = ({ countryName, population, region, capital, flag }) => {
+export const CountryCard = ({ countryName, population, region, capital, flag, cca3 }) => {
 
     const cardBg = useColorModeValue('white', 'dark-blue')
     const cardColor = useColorModeValue('very-dark-blue-2', 'white')
 
     return (
-        <Link href={`/countries/${countryName}`}>
+        <Link href={`/countries/${cca3}`}>
             <Flex
                 flexDirection={'column'}
                 rounded={'md'}

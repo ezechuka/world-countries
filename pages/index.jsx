@@ -33,6 +33,7 @@ const Home = ({ countries }) => {
                         region={country.region}
                         capital={country.capital}
                         flag={country.flags.svg}
+                        cca3={country.cca3}
                     />
                 ))}
 
@@ -42,7 +43,7 @@ const Home = ({ countries }) => {
 }
 
 export async function getStaticProps() {
-    const { data } = await fetchApi().get('/all?fields=name,capital,population,region,flags')
+    const { data } = await fetchApi().get('/all?fields=name,capital,population,region,flags,cca3')
     const countries = data
 
     return {
