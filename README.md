@@ -35,8 +35,8 @@ Users should be able to:
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Solution URL: [FrontendMentor](https://www.frontendmentor.io/solutions/fully-functional-and-responsive-webpage-for-countries-of-the-world-S1ZAu_tLGD)
+- Live Site URL: [Vercel](https://world-countries-plum.vercel.app/)
 
 ## My process
 
