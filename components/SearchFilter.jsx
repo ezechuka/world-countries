@@ -46,7 +46,7 @@ const SearchFilter = ({ countries, setCountry }) => {
         <Flex
             flexDirection={{ base: 'column', md: 'row' }}
             justifyContent={'space-between'}
-            alignItems={'center'}
+            alignItems={{base: 'start', md: 'center'}}
             maxWidth={'container.xl'}
             mx={'auto'}
             paddingX={{ base: 4, md: 16 }}
