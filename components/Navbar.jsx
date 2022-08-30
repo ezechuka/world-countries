@@ -6,7 +6,7 @@ const Navbar = () => {
     const { colorMode, toggleColorMode } = useColorMode()
 
     return (
-        <Box boxShadow={'md'}>
+        <Box boxShadow={'base'}>
             <Flex
                 justifyContent={'space-between'}
                 alignItems={'center'}
